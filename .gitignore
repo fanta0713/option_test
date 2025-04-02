@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+.vscode/
+equip_env/
+log/
+hello_world.py

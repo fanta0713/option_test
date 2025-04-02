@@ -1,0 +1,7 @@
+vendor: MetaX
+test_environment: production
+ssh:
+  hostname: "192.7.30.188"
+  port: 22
+  username: "root"
+  password: "123"
