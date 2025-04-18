@@ -28,6 +28,8 @@ class SSHClient:
                 if error:
                     logger.error(f"命令执行出错: {error}")
                 self.ssh.close()
+                logger.debug(f"执行命令：{command}")
+                logger.debug(f"返回信息：{output}")
                 return output
             except Exception as e:
                 logger.error(f"执行命令时出错: {e}")

@@ -12,19 +12,21 @@ def load_config():
 def vendor_info(request):
     return request.param
 
+@pytest.fixture(params=[load_config()['vendor_id']])
+def vendor_id(request):
+    return request.param
+
 @pytest.fixture(params=[load_config()['ssh']])
 def ssh_info(request):
-    print("aaaaaaaaaaaaaaaaa")
-    print(request.param)
     return request.param
 
 @pytest.fixture
-def get_graphics_card(vendor_info, ssh_info):
+def get_graphics_card(vendor_info, vendor_id, ssh_info):
     if vendor_info == "NVIDIA":
         pass
     elif vendor_info == "AMD":
         pass
     elif vendor_info == "MetaX":
-        return MetaX(vendor_info, ssh_info)
+        return MetaX(vendor_info, vendor_id, ssh_info)
     else:
         raise ValueError(f"不支持的厂商: {vendor_info}")

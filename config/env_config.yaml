@@ -1,7 +1,8 @@
 vendor: MetaX
+vendor_id: 2020
 test_environment: production
 ssh:
   hostname: "192.7.30.188"
   port: 22
   username: "root"
-  password: "123"
+  password: "Ats@h3c"

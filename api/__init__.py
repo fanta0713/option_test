@@ -4,17 +4,22 @@ from utils.ssh_utils import SSHClient
 class BaseApi(ABC):
 
     @abstractmethod
-    def get_gpu_bus_ids():
-        pass
-    @abstractmethod
-    def run_pcie_benchmark():
+    def api_get_gpu_bus_ids() -> list:
         pass
 
     @abstractmethod
-    def run_p2p_benchmark():
+    def api_get_gpu_slot() -> str:
         pass
 
     @abstractmethod
-    def run_gemm_benchmark():
+    def api_run_pcie_benchmark():
+        pass
+
+    @abstractmethod
+    def api_run_p2p_benchmark():
+        pass
+
+    @abstractmethod
+    def api_run_gemm_benchmark():
         pass
 
