@@ -1,5 +1,5 @@
 import re
-from api import BaseApi
+from api.os import BaseApi
 from utils.ssh_utils import SSHClient
 from utils.logging_config import logger
 
@@ -12,7 +12,6 @@ class MetaX(BaseApi):
     def api_get_gpu_bus_ids(self) -> list:
         command = f"lspci | grep -i {self.vendor_id}"
         result = self.ssh_client.execute_command(command)
-        # 正则表达式匹配 Busid（格式为 "xx:xx.0"，其中 x 为十六进制字符）
         busid_pattern = r'([a-fA-F0-9]{2}[:][0-9]{2}[.]0)'
         busids = re.findall(busid_pattern, result)
         return busids
