@@ -13,7 +13,7 @@ class SSHClient:
     def connect(self):
         try:
             self.ssh.connect(self.hostname, port=self.port, username=self.username, password=self.password)
-            logger.info(f"成功连接到 {self.hostname}")
+            logger.debug(f"成功连接到 {self.hostname}")
             return True
         except Exception as e:
             logger.error(f"连接失败: {e}")

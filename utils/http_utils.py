@@ -23,8 +23,6 @@ class ApiClient():
             "content-type": "application/json"
         }
         response = self.session.post(url, data=data, verify=False, headers=headers)
-        logger.info("xxxxxxxxxxxxxxxxxxxxxx")
-        logger.info(response.text)
         try:
             response.raise_for_status()
             self.token = response.json().get('Oem', {}).get('Public', {}).get('X-Auth-Token')
@@ -39,7 +37,13 @@ class ApiClient():
             logger.error(f"解析响应 JSON 数据时发生错误: {e}")
 
     def get(self, url, **kwargs):
-        return self.request(url, "GET", **kwargs)
+        response = self.request(url, "GET", **kwargs)
+        if response.status_code == 200:
+            logger.info("GET请求成功，返回状态码: 200")
+        else:
+            logger.error(f"GET请求失败，返回状态码: {response.status_code}")
+            raise Exception(f"GET请求失败，返回状态码: {response.status_code}")
+        return response.text
 
     def post(self, url, data=None, json=None, **kwargs):
         return self.request(url, "POST", data, json, **kwargs)
@@ -77,4 +81,3 @@ class ApiClient():
         logger.info("接口请求体 json 参数 ==>> {}".format(complexjson.dumps(json, indent=4, ensure_ascii=False)))
         logger.info("接口上传附件 files 参数 ==>> {}".format(files))
         logger.info("接口 cookies 参数 ==>> {}".format(complexjson.dumps(cookies, indent=4, ensure_ascii=False)))
-    
