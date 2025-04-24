@@ -23,14 +23,14 @@ class YingXi(BaseApi):
         slot_id = re.search(slot_pattern, result)
         return slot_id.group(1)
     
-    def api_get_gpu_speed_and_bandwidth(self, gpu_bus_id) -> dict:
+    def api_get_gpu_speed_and_width(self, gpu_bus_id) -> dict:
         command = f"lspci -xxxvvvs {gpu_bus_id}"
         result = self.ssh_client.execute_command(command)
         pattern = r'LnkSta:\s+Speed (\d+(?:\.\d+)?).*Width x(\d+)\s\((\S+)\)'
-        speed_and_bandwidth = re.search(pattern, result)
-        if speed_and_bandwidth.group(3) != "ok":
-            raise ValueError(f"带宽状态异常，当前状态为{speed_and_bandwidth.group(3)}")
-        return {"speed": speed_and_bandwidth.group(1), "bandwidth": speed_and_bandwidth.group(2)}
+        speed_and_width = re.search(pattern, result)
+        if speed_and_width.group(3) != "ok":
+            raise Exception(f"带宽状态异常，当前状态为{speed_and_width.group(3)}")
+        return (speed_and_width.group(1), speed_and_width.group(2))
     
     def api_get_gpu_dmi(self, gpu_bus_ids: list) -> list:
         command = f"dmidecode -t 9"

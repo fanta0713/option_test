@@ -18,7 +18,7 @@ class HDM():
         pcie_devices = data.get("Members", [])
         for device in pcie_devices:
             if device.get("Links").get("PCIeFunctions")[0].get("Oem").get("Public").get("BDF").lower() == f"0000:{bus_id}":
-                vendor = device.get("Name")
+                vendor = device.get("CardManufacturer")
                 return vendor
     
     def get_hdm_gpu_speed(self, bus_id):
