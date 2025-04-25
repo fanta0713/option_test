@@ -18,6 +18,10 @@ def vendor_info(request):
 def vendor_id(request):
     return request.param
 
+@pytest.fixture(params=[load_config()['fw_version']])
+def fw_version(request):
+    return request.param
+
 @pytest.fixture(params=[load_config()['ssh']])
 def ssh_info(request):
     return request.param

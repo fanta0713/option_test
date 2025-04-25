@@ -1,5 +1,8 @@
+# vendor信息从PDM或者厂商SPEC获取
 vendor: YingXi
+# vendor_id从PDM或者厂商SPEC获取
 vendor_id: 2020
+fw_version: "1.22.3.0"
 hdm:
   ip: "192.7.30.183"
   UserName: "admin"

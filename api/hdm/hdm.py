@@ -52,3 +52,18 @@ class HDM():
                 max_width = jsonpath.jsonpath(device, "$.Links.PCIeFunctions[0].Oem.Public.MaxDatawidth")
                 negotiated_width = jsonpath.jsonpath(device, "$.Links.PCIeFunctions[0].Oem.Public.Datawidth")
                 return max_width[0] if max_width else None, negotiated_width[0] if negotiated_width else None
+    
+    def get_hdm_gpu_fw_version(self, bus_id):
+        """
+        获取HDM GPU的固件版本
+        :param bus_id: GPU的bus id
+        :return: GPU的固件版本
+        """
+        data = self.hdm_client.api_get_pcie_device_list()
+        data = json.loads(data)
+        pcie_devices = data.get("Members", [])
+        for device in pcie_devices:
+            bdf = jsonpath.jsonpath(device, "$.Links.PCIeFunctions[0].Oem.Public.BDF")
+            if bdf and str(bdf[0]).lower() == f"0000:{bus_id}":
+                fw_version = jsonpath.jsonpath(device, "$.FirmwareVersion")
+                return fw_version[0] if fw_version else None
